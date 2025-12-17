@@ -6,12 +6,23 @@ Assemble via Microsoft Macro Assembler (set to 64-bit mode)
 ```
 ml64.exe %TARGET%.s /c /Fo space.obj
 ```
+Or to assemble using uasm
+```
+uasm -c -win64 space.s
+```
+Or to assemble using asmc
+```
+asmc64 -c -win64 space.s
+```
 ### Link
 Link using Microsoft Visual C++ Linker
 ```
 link.exe /nologo /SUBSYSTEM:EFI_APPLICATION /ENTRY:EFI_MAIN /MACHINE:X64 space.obj /OUT:BOOTX64.efi
 ```
-
+Or to link using MinGW
+```
+x86_64-w64-mingw32-ld -e EFI_MAIN -subsystem 10 -dll -o BOOTX64.efi space.o
+```
 ### Running
 The compiled BOOTX64.EFI program must be placed in the EFI/BOOT/ directory of an EFI partition on a disk using a GPT. <br>
 The program can be run by entering the firmware settings, turning off secure boot, and selecting the disk as the device to boot from. 
